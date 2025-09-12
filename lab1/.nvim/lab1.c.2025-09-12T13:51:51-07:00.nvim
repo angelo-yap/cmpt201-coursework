@@ -1,0 +1,46 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+  char *buff = NULL; // string read from getline
+  size_t size = 0;
+  ssize_t num_char;
+  char *saveptr;
+  const char *delimiter = " ";
+  bool go_again = true;
+
+  do{
+
+    printf("Please enter some text: \n");
+    // write getline into num_char
+    num_char = getline(&buff, &size, stdin);
+
+    // error check - getline failure
+    // if the getline fails (returns -1):
+    if (num_char == -1) {
+      // return error
+      perror("getline failed");
+      exit(EXIT_FAILURE);
+    }
+
+    printf("Tokens:\n");
+
+    // first call of strtok_r
+    char *token = strtok_r(buff, delimiter, &saveptr);
+    while (token != NULL) {
+      printf("%s\n", token);
+      token = strtok_r(NULL, delimiter, &saveptr);
+    }
+
+    printf("Enter a new word to go again.");
+    
+    if (num_char == -1){go_again = false;}
+
+  }while (go_again);
+
+  free(buff);
+  return 0;
+}
