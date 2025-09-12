@@ -1,0 +1,6 @@
+#include <stdio.h>
+int main() { 
+    printf("Hello CMPT201 world!\n");
+    printf("Test Test Test C");
+
+}
