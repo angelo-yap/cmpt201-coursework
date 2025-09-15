@@ -3,7 +3,8 @@
 
 int main() {
   /*for (int i = 0; i < 5; i++) {*/
-  for (;;) {
+  fork();
+  for (int i = 0; i < 20; i++) {
     printf("Sleeping!\n");
     sleep(3);
   }

@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() {
+  printf("%d\n", getpid());
+  printf("%d\n", getppid());
+  int temp = fork();
+  if(temp){
+  printf("PARENT: PID=%d, child PID=%d", getpid(), temp);
+  }else{
+
+  }
+}

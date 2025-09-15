@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+  /*for (int i = 0; i < 5; i++) {*/
+  int number = 0;
+  int *ptr = &number;
+
+  fork();
+  for (int i = 0; i < 20; i++) {
+    *ptr++;
+    printf("Sleeping!%i\n", number);
+    sleep(3);
+  }
+
+  printf("DONE\n");
+}
