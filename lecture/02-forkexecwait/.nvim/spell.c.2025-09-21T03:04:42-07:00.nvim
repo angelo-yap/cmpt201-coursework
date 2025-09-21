@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+  char *message = "Hello world!";
+
+  for (int i = 0; i < 12; i++) {
+    printf("%c", message[i]);
+    fflush(stdout);
+    sleep(1);
+  }
+}

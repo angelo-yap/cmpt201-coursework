@@ -1,0 +1,24 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() {
+  char *buff = NULL;
+  size_t size = 0;
+  ssize_t num_char;
+
+  printf("Enter programs to run.\n");
+
+  num_char = getline(&buff, &size, stdin);
+
+  if (num_char == -1) {
+    // return error
+    perror("getline failed");
+    exit(EXIT_FAILURE);
+  }
+
+  execl("/usr/bin/ls", "ls");
+
+  free(buff);
+}
