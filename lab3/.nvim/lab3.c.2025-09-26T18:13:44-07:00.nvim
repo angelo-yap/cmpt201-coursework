@@ -1,0 +1,57 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void resetArray(char *array[], size_t max) {
+  for (int i = 0; i < max; i++) {
+    free(array[i]);
+    array[i] = NULL;
+  }
+}
+
+void printArray(char *array[], size_t max) {
+  for (int i = 0; i < max; i++) {
+    printf("%s\n", array[i]);
+  }
+}
+
+void shiftArrayItems(char *array[], size_t max) {
+  for (int i = max - 1; i > 0; i--) {
+    array[i] = array[i - 1];
+  }
+
+  array[0] = NULL;
+}
+int main(void) {
+  char *history[5] = {NULL, NULL, NULL, NULL, NULL};
+  const size_t MAX = 5;
+
+  char *buffer;
+  size_t size = 0;
+  ssize_t num_char;
+
+  for (;;) {
+    printf("Enter input: ");
+    fflush(stdout);
+
+    num_char = getline(&buffer, &size, stdin);
+
+    if (num_char == -1) {
+      // return error
+      perror("getline failed");
+      exit(EXIT_FAILURE);
+    }
+
+    // remove newline
+    buffer[strcspn(buffer, "\n")] = 0;
+
+    history[0] = buffer;
+
+    if (strcmp(buffer, "print") == 0) {
+      printArray(history, MAX);
+    }
+
+    shiftArrayItems(history, MAX);
+  }
+}

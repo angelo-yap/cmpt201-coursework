@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void) { 
+  char *history[5] = {NULL, NULL, NULL, NULL, NULL};
+  /*size_t count = 0;*/
+
+  char *buffer;
+  size_t count = 0;
+
+  
+}
