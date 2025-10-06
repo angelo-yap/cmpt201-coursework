@@ -1,0 +1,46 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+int main() {
+  // forever
+  for (;;) {
+    char *buffer = NULL;
+    size_t size = 0;
+    ssize_t num_char;
+
+    printf("Enter programs to run.\n> ");
+    fflush(stdout);
+    // user input
+    num_char = getline(&buffer, &size, stdin);
+    // if getline failed
+    if (num_char == -1) {
+      // return error
+      perror("getline failed");
+      exit(EXIT_FAILURE);
+    }
+    // remove ending newline from buffer
+    buffer[strcspn(buffer, "\n")] = 0;
+    // fork
+    pid_t pid = fork();
+    // if parent
+    if (pid) {
+      // wpid
+      pid_t wpid = waitpid(pid, NULL, 0);
+      if (wpid == -1) {
+        perror("error waiting for PID\n");
+      }
+
+      free(buffer);
+      // else (child)
+    } else {
+      // execute command
+      execl(buffer, buffer, (char *)NULL);
+      // if invalid command throw error, continue
+      perror("Exec failure");
+    }
+  }
+}

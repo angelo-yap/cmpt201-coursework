@@ -5,7 +5,7 @@
 int main() {
   printf("%d\n", getpid());
   printf("%d\n", getppid());
-  int temp = fork(); // if parent
+  int temp = fork(); //if parent
   if (temp) {
     printf("PARENT: PID=%d, child PID=%d\n", getpid(), temp);
   } else {
