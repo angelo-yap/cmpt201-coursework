@@ -1,0 +1,17 @@
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void *printHello() {
+  printf("hi");
+  return 0;
+}
+
+int main() {
+
+  pthread_t *thread = malloc(sizeof(pthread_t));
+
+  int status = pthread_create(thread, NULL, &printHello, NULL);
+
+  return 0;
+}

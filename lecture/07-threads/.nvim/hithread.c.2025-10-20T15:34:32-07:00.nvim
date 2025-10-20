@@ -1,0 +1,20 @@
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void *printHello(void *word) {
+  printf("%s\n", (char *) word);
+  return 0;
+}
+
+int main() {
+
+  pthread_t thread; //= malloc(sizeof(pthread_t));
+
+  int status =
+      pthread_create(&thread, NULL, &printHello, (void *)"john bigdick");
+
+  pthread_join(thread, NULL);
+
+  return 0;
+}

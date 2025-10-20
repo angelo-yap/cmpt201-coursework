@@ -1,0 +1,26 @@
+#define _GNU_SOURCE
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+void *printHello(void *word) {
+  printf("%s, TID:%d\n", (char *)word, gettid());
+  return (void *) strlen((char *)word);
+}
+
+int main() {
+
+  pthread_t thread; //= malloc(sizeof(pthread_t));
+
+  int status = pthread_create(&thread, NULL, &printHello, "john bigdick");
+  
+  int stringlength;
+
+  pthread_join(thread, (void *) stringlength);
+
+  printf("%d\n", stringlength);
+
+  return 0;
+}

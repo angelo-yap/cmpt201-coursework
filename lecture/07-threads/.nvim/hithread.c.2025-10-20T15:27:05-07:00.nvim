@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <pthread.h>
+
+void *printHello(){
+  printf("hi"); 
+  return;
+}
+
+int main(){
+
+  pthread_t *thread;
+
+  int status = pthread_create(thread, NULL, &printHello, NULL);
+
+  return 0;
+
+}
