@@ -1,0 +1,38 @@
+#include <pthread.h>
+#include <stdio.h>
+
+static pthread_mutex_t A;
+static pthread_mutex_t B;
+
+static void *func(void *arg) {
+  pthread_mutex_lock(&A);
+  printf("Hello this is func locking A");
+  pthread_mutex_lock(&B);
+  printf("Hello this is func locking B");
+  pthread_mutex_unlock(&B);
+  pthread_mutex_unlock(&A);
+  printf("Hello this is func unlocking A & B");
+  pthread_exit(0);
+}
+
+static void *func2(void *arg) {
+  pthread_mutex_lock(&B);
+  printf("Hello this is func2 locking B");
+  pthread_mutex_lock(&A);
+  printf("Hello this is func2 locking A");
+  pthread_mutex_unlock(&A);
+  pthread_mutex_unlock(&B);
+  printf("Hello this is func2 unlocking B & A");
+  pthread_exit(0);
+}
+
+int main() {
+  pthread_t t1;
+  pthread_t t2;
+
+  pthread_create(&t1, NULL, func, NULL);
+  pthread_create(&t2, NULL, func2, NULL);
+
+  pthread_join(t1, NULL);
+  pthread_join(t2, NULL);
+}
