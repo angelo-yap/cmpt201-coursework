@@ -1,0 +1,14 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main() {
+  char *word = "Hello, world!\n";
+
+  int status = open("tmp", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+  write(status, word, strlen(word));
+
+  lseek(status, -6, SEEK_CUR);
+}

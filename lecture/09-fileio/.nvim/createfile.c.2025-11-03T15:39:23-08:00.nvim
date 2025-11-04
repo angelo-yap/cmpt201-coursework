@@ -1,0 +1,7 @@
+#include <fcntl.h>
+#include <unistd.h>
+
+int main() { 
+  int status = open("tmp", O_CREAT);
+  write(status, "Hello, world!\n", 14);
+}
