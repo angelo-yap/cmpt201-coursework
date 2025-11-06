@@ -1,0 +1,9 @@
+#define _C_POSIX_SOURCE 200809L
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main() {
+  char *buffer;
+  ssize_t len = getline(&buffer, NULL, stdin);
+  stat();
+}

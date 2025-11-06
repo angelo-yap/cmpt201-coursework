@@ -1,0 +1,21 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main() {
+  char *buffer;
+
+  printf("enter path\n");
+  ssize_t len = getline(&buffer, NULL, stdin);
+
+  struct stat sb;
+
+  int status = stat(buffer, &sb);
+
+  if (S_ISREG(status))
+    printf("Regular file\n");
+  else if (S_ISDIR(status))
+    printf("Directory\n");
+  else
+    printf("Other\n");
+}
